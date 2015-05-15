@@ -32,14 +32,14 @@ function concatenateArrays(a, b) {
 		for(var j = 0; j < a.length; j++){
 			if(typeof a[j] !== "number"){
 				throw "Invalid Input";
-			} else if(a[j] !== Math.round(a[j])){
+			} else if(a[j] !== Math.ceil(a[j])){
 				throw "Invalid Input";
 			}
 		}
 		for(var j = 0; j < b.length; j++){
 			if(typeof b[j] !== "number"){
 				throw "Invalid Input";
-			} else if(b[j] !== Math.round(b[j])){
+			} else if(b[j] !== Math.ceil(b[j])){
 				throw "Invalid Input";
 			}
 		}
@@ -448,6 +448,34 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function findBoth(a,b) {
+ 	var commonArray = [];
+	var count;
+
+	if(a.length <= b.length){
+	    count = b.length
+	} else {
+	    count = a.length
+	}
+	 	for(var i = 0; i < count; i++){
+	 		if(a.indexOf(b[i]) !== -1){
+	 			commonArray.push(b[i]);
+	 		}
+	 	}
+	 	
+	 	commonArray.sort();
+	    var sentinel = commonArray.length;
+	 	while(sentinel > 0){
+	     	for(var i = 0; i < commonArray.length-1; i++){
+	     	    if(commonArray[i] === commonArray[i+1]){
+	     	        commonArray.splice(i,1);
+	     	    }
+	     	}
+	     	sentinel--
+	 	}
+	 	
+	 	return commonArray;
+ }
 
 /*
  * PROBLEM `countBoth`: (hard)
@@ -457,6 +485,34 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function countBoth(a,b){
+ var commonArray = [];
+	var count;
+
+	if(a.length <= b.length){
+	    count = b.length
+	} else {
+	    count = a.length
+	}
+	 	for(var i = 0; i < count; i++){
+	 		if(a.indexOf(b[i]) !== -1){
+	 			commonArray.push(b[i]);
+	 		}
+	 	}
+	 	
+	 	commonArray.sort();
+	    var sentinel = commonArray.length;
+	 	while(sentinel > 0){
+	     	for(var i = 0; i < commonArray.length-1; i++){
+	     	    if(commonArray[i] === commonArray[i+1]){
+	     	        commonArray.splice(i,1);
+	     	    }
+	     	}
+	     	sentinel--
+	 	}
+	 	
+	 	return commonArray.length;
+}
 
 /* 
  * PROBLEM `isDiagonalMatrix`: (hard)
@@ -489,6 +545,33 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function isDiagonalMatrix(d){
+ 	if(d[0].length === d.length){
+ 		switch(d.length){
+ 			case 1: return true;
+ 			break;
+ 			case 2:
+ 				if(d[0][1] === 0 && d[1][0] === 0){
+ 					return true;
+ 				} else {
+ 					return false;
+ 				}
+ 			break;
+ 			case 3:
+ 				if(d[0][1] === 0 && d[0][2] === 0 && d[1][0] === 0 &&
+ 				   d[1][2] === 0 && d[2][0] === 0 && d[2][1] === 0){
+ 					return true;
+ 				} else {
+ 					return false;
+ 				}
+ 			break;
+ 			default: return "I don't do more than 3x3 matrices";
+ 			break;
+ 		}
+ 	} else {
+ 		return false;
+ 	}
+ }
 
 /*
  * PROBLEM `isAnagram`: (hard) - Actual Interview Question
@@ -511,6 +594,73 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function countStrings(a,b){
+ 	var commonArray = [];
+	var count;
+	var counter = 0;
+
+	if(a.length <= b.length){
+	    count = b.length
+	} else {
+	    count = a.length
+	}
+	 	for(var i = 0; i < count; i++){
+	 		if(a.indexOf(b[i]) !== -1){
+	 			commonArray.push(b[i]);
+	 		}
+	 	}
+	 	
+	 	commonArray.sort();
+	    var sentinel = commonArray.length;
+	 	while(sentinel > 0){
+	     	for(var i = 0; i < commonArray.length-1; i++){
+	     	    if(commonArray[i] === commonArray[i+1]){
+	     	        commonArray.splice(i,1);
+	     	        counter++;
+	     	    }
+	     	}
+	     	sentinel--
+	 	}
+	 	
+	if(counter > 0){
+	 	    return false;
+	 	} else {
+	 	    return true;
+	 	}
+}
+
+ function isAnagram(a,b){
+   	var word1;
+	var word2;
+	var truthArray = [];
+	var flag = true;
+	
+	 for(var i = 0; i < a.length; i++){
+	    word1 = a[i].split("");
+	    word2 = b[i].split("");
+
+	    if(word1.length !== word2.length){
+	        truthArray.push(false);
+	    } else {
+	        for(var j = 0; j < word1.length; j++){
+	            if(word1.indexOf(word2[j]) === -1){
+	                truthArray.push(false);
+	                flag = false;
+	                break;
+	            }
+	        }
+	        if(flag){
+	            if(countStrings(word1,word2)){
+	                truthArray.push(true);
+	            } else {
+	                truthArray.push(false);
+	            }
+	        }
+	    }
+	}
+
+	return truthArray;
+}
 
 /*
  * PROBLEM `validateParentheses`: (hard) - Actual Interview Question
@@ -534,6 +684,31 @@ function absVal(integer) {
  *
  * If the input is invalid throw an 'Invalid Input' exception.
  */
+ function validateParentheses(theString){
+	var parentheses = "{}()[]";
+	var stack = [];
+	var character;
+	var pos;
+	var flag;
+
+	for(var i = 0; character = theString[i]; i++){
+		pos = parentheses.indexOf(character);
+
+		if(pos === -1){
+			continue;
+		}
+
+		if(pos%2 === 0){
+			stack.push(pos + 1);
+		} else {
+			if(stack.pop() !== pos){
+				return false;
+			}
+		}
+	}
+
+	return stack.length === 0
+ }
 
 /* 
  * PROBLEM `flattenArray`: (hard) - Actual Interview Question
@@ -548,6 +723,34 @@ function absVal(integer) {
  *
  * Insane mode: do this without recursion.
  */
-
+function flattenArray(a){
+    for(var i = 0; i < a.length; i++){
+    		switch(typeof a[i]){
+    			case "number":
+    				continue;
+    			break;
+    			case "object":
+    				if(Array.isArray(a[i])){
+    				    storage = a[i];
+                        a.splice(i,1);
+                        console.log(a);
+                        for(var j = 0; j < storage.length; j++){
+                          a.splice(i,0,storage[j]);
+                          i++
+                        }
+                        flattenArray(a);
+    				} else {
+    					continue;
+    				}
+    			break;
+    			case "string":
+    				continue;
+    			break;
+    			default: continue;
+    			break;
+    		}
+    }
+    return a;
+}
 
 
