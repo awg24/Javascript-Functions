@@ -419,22 +419,17 @@ function absVal(integer) {
  * The input should only contain lower-case alphabetic characters. If the input
  * is invalid throw an 'Invalid Input' exception.
  */
- function derot13(theString, key){
+ function rotn(theString, key){
 
- 	var newRotArray = new Array(26);
  	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+	var newRotArray = [];
+	var dencrypted= [];
 
- 	for(var i = 0; i < alphabet.length; i++){
-	    var ind = alphabet.indexOf(alphabet[i]);
-	    
-	    var encryptedIndex = ind + key;
-	    if(encryptedIndex > 25){
-	        encryptedIndex -= 25;
-	    }
-	    newRotArray.splice(encryptedIndex, 0, alphabet[ind]);
+ 	for(var i = 0; i < alphabet.length; i++){    
+	    var encryptedIndex = (i + key)%26;
+	    newRotArray.splice(encryptedIndex, 0, alphabet[i]);
 	}
- 	
- 	var dencrypted= [];
+ 		
  	var splitString = theString.split("");
  	for(var i = 0; i < splitString.length; i++){
  		var index = alphabet.indexOf(splitString[i])
