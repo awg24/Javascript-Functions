@@ -377,6 +377,18 @@ function absVal(integer) {
  * The input should only contain lower-case alphabetic characters. If the input
  * is invalid throw an 'Invalid Input' exception.
  */
+ function rot13(theString){
+ 	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+ 	var rot13Bet = ["n","o","p","q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m"];
+ 	var encrypted= [];
+ 	var splitString = theString.split("");
+ 	for(var i = 0; i < splitString.length; i++){
+ 		var index = alphabet.indexOf(splitString[i])
+ 		encrypted.push(rot13Bet[index]);
+ 	}
+
+ 	return encrypted.join("");
+ }
 
 /*
  * PROBLEM `derot13`: (hard)
@@ -386,6 +398,18 @@ function absVal(integer) {
  * The input should only contain lower-case alphabetic characters. If the input
  * is invalid throw an 'Invalid Input' exception.
  */
+ function derot13(theString){
+ 	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+ 	var rot13Bet = ["n","o","p","q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m"];
+ 	var dencrypted= [];
+ 	var splitString = theString.split("");
+ 	for(var i = 0; i < splitString.length; i++){
+ 		var index = alphabet.indexOf(splitString[i])
+ 		dencrypted.push(rot13Bet[index]);
+ 	}
+
+ 	return dencrypted.join("");
+ }
 
 /*
  * PROBLEM `rotn`: (hard)
@@ -395,6 +419,31 @@ function absVal(integer) {
  * The input should only contain lower-case alphabetic characters. If the input
  * is invalid throw an 'Invalid Input' exception.
  */
+ function derot13(theString, key){
+
+ 	var newRotArray = new Array(26);
+ 	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+ 	for(var i = 0; i < alphabet.length; i++){
+	    var ind = alphabet.indexOf(alphabet[i]);
+	    
+	    var encryptedIndex = ind + key;
+	    if(encryptedIndex > 25){
+	        encryptedIndex -= 25;
+	    }
+	    newRotArray.splice(encryptedIndex, 0, alphabet[ind]);
+	}
+ 	
+ 	var dencrypted= [];
+ 	var splitString = theString.split("");
+ 	for(var i = 0; i < splitString.length; i++){
+ 		var index = alphabet.indexOf(splitString[i])
+ 		dencrypted.push(newRotArray[index]);
+ 	}
+
+ 	return dencrypted.join("");
+ }
+ 
 
 /*
  * PROBLEM `findBoth`: (hard)
