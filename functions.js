@@ -871,10 +871,26 @@ function absVal(integer) {
 
 	if(typeof theString !== "string"){
 		throw "Invalid Input";
-	} else if(theString[0] === "a"){
-		throw "Invalid Input"
 	} else {
-
+		for(var k = 0; k < theString.length; k++){
+			switch(theString[k]){
+				case "{":
+				break;
+				case "}":
+				break;
+				case "(":
+				break;
+				case ")":
+				break;
+				case "[":
+				break;
+				case "]":
+				break;
+				default: throw "Invalid Input";
+				break;
+			}
+		}
+	}
 		for(var i = 0; character = theString[i]; i++){
 			pos = parentheses.indexOf(character);
 
@@ -892,7 +908,7 @@ function absVal(integer) {
 		}
 
 		return stack.length === 0
-	}
+	
  }
 
 /* 
