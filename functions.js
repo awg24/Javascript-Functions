@@ -106,12 +106,12 @@ function sortLetters(inputString) {
 function absVal(integer) {
 
 	if(typeof integer !== "number"){
-		return "Invalid Input";
+		throw "Invalid Input";
 	} else if(isNaN(integer)){
-		return "Invalid Input";
-	}
-	
-	if (integer < 0){
+		throw "Invalid Input";
+	} else if(integer !== Math.ceil(integer)){
+		throw "Invalid Input";
+	} else if (integer < 0){
 		return -integer;
 	} else {
 		return integer;
@@ -128,7 +128,9 @@ function absVal(integer) {
 
  function myMin(a,b){
 
- 	if(a > b){
+ 	if(a !== Math.ceil(a) || b !== Math.ceil(b)){
+		throw "Invalid Input";
+	} else if(a > b){
  		return b;
  	} else {
  		return a;
@@ -145,14 +147,23 @@ function absVal(integer) {
  * Insane mode: do this without using a for loop.
  */
  function myMax(a){
-
- 	var biggestInt = a[0];
- 	for(var i = 0; i < a.length - 1; i++){
- 		if(biggestInt < a[i+1]){
- 			biggestInt = a[i+1];
- 		} 
- 	}
-
+	if(!Array.isArray(a)){
+		throw "Invalid Input";
+	} else {	
+		for(var j = 0; j < a.length; j++){
+    			if(typeof a[j] !== "number"){
+    				throw "Invalid Input";
+    			} else if(a[j] !== Math.ceil(a[j])){
+    				throw "Invalid Input";
+    			}
+    		}
+    	}
+    	 	var biggestInt = a[0];
+    	 	for(var i = 0; i < a.length - 1; i++){
+    	 		if(biggestInt < a[i+1]){
+    	 			biggestInt = a[i+1];
+    	 		} 
+    	 	}
  	return biggestInt;
  }
 
@@ -169,7 +180,17 @@ function absVal(integer) {
  */
  function getMonth(a) {
  	var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
- 	return months[a-1];
+
+ 	if(typeof a !== "number"){
+ 		throw "Invalid Input";
+ 	} else if(a !== Math.ceil(a)){
+		throw "Invalid Input";
+	} else if(a <= 0 || a >= 13){
+		throw "Invalid Input"
+	} else { 		
+		return months[a-1];
+	}
+ 	
  }
 
 /*
