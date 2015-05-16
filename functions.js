@@ -523,7 +523,6 @@ function absVal(integer) {
  */
  function rotn(theString, key){
 
- 	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 	var newRotArray = [];
 	var dencrypted= [];
 	if(typeof key !== "number"){
@@ -531,10 +530,11 @@ function absVal(integer) {
 	} else if(isNaN(key)){
 		throw "Invalid Input";
 	} else {
-	 	for(var i = 0; i < alphabet.length; i++){    
-		    var encryptedIndex = (i + key)%26;
-		    newRotArray.splice(encryptedIndex, 0, alphabet[i]);
-		}
+	 	while(key > 0){
+	 		alphabet.push(alphabet.shift());
+	 		key--;
+	 	}
+	 	newRotArray = alphabet;
 	}
 
 	if(typeof theString !== "string"){
@@ -542,7 +542,8 @@ function absVal(integer) {
  	} else if (theString === ""){
  		throw "Invalid Input";
  	} else {
-	 		
+
+	 	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 	 	var splitString = theString.split("");
 	 	for(var i = 0; i < splitString.length; i++){
 	 		var index = alphabet.indexOf(splitString[i])
