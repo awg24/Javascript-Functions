@@ -200,7 +200,13 @@ function absVal(integer) {
  */
  function randomElement(a){
 
- 	return a[Math.floor(Math.random()*a.length)];
+ 	if(typeof a !== "object"){
+ 		throw "Invalid Input"
+ 	} else if(Array.isArray(a)){
+ 		return a[Math.floor(Math.random()*a.length)];
+ 	} else {
+ 		throw "Invalid Input";
+ 	}
  }
 
 /*
@@ -213,21 +219,28 @@ function absVal(integer) {
  function studentPairs(a){
  	var pairs = [];
  	var pair = [];
+ 	if(typeof a !== "object"){
+ 		throw "Invalid Input"
+ 	} else if(Array.isArray(a)){
  
-    while (a.length >= 2){
-	 	var rand1 = Math.floor(Math.random()*a.length)
-		pair.push(a[rand1]);
-	 	a.splice(rand1, 1);
-	    var rand2 = Math.floor(Math.random()*a.length)
-	 	pair.push(a[rand2]);
-	 	a.splice(rand2, 1);
-	 	pairs.push(pair);
-	    var pair = [];
-    }
-    if(a.length === 1){
-    	pairs[pairs.length-1].push(a[0]);
-    }
-    return pairs;
+	    while (a.length >= 2){
+		 	var rand1 = Math.floor(Math.random()*a.length)
+			pair.push(a[rand1]);
+		 	a.splice(rand1, 1);
+		    var rand2 = Math.floor(Math.random()*a.length)
+		 	pair.push(a[rand2]);
+		 	a.splice(rand2, 1);
+		 	pairs.push(pair);
+		    var pair = [];
+	    }
+	    if(a.length === 1){
+	    	pairs[pairs.length-1].push(a[0]);
+	    }
+	    return pairs;
+
+	 } else {
+	 	 throw "Invalid Input";
+	 }
  }
 
 /*
@@ -241,16 +254,22 @@ function absVal(integer) {
  function sumSquares(integer){
  	var newArray = [];
  	var sumOfSquaredArray = 0;
- 	for(var i = 1; i <= integer; i++){
- 		newArray.push(i);
+
+ 	if(typeof integer !== "number"){
+ 		throw "Invalid Input";
+ 	} else if(integer !== Math.ceil(integer)){
+		throw "Invalid Input";
+	} else{
+	 	for(var i = 1; i <= integer; i++){
+	 		newArray.push(i);
+	 	}
+
+	 	for(var i = 0; i < newArray.length; i++){
+	 		sumOfSquaredArray += Math.pow(newArray[i],2);
+	 	}
+
+	 	return sumOfSquaredArray;
  	}
-
- 	for(var i = 0; i < newArray.length; i++){
- 		sumOfSquaredArray += Math.pow(newArray[i],2);
- 	}
-
- 	return sumOfSquaredArray;
-
  }
 
 /* 
@@ -263,18 +282,33 @@ function absVal(integer) {
 
  function findMaxDiff(a){
 
- 	if(a.length === 1 || a.length === 0){
- 		return 0;
- 	}
+ 	if(typeof a !== "object"){
+ 		throw "Invalid Input"
+ 	} else if(Array.isArray(a)){
 
- 	var biggestDiff = Math.abs(a[0] - a[1]);
- 	for(var i = 2; i < a.length - 1; i++){
- 		if(biggestDiff < Math.abs(a[i] - a[i+1])){
- 			biggestDiff = Math.abs(a[i] - a[i+1]);
- 		} 
- 	}
+		for(var j = 0; j < a.length; j++){
+			if(typeof a[j] !== "number"){
+				throw "Invalid Input";
+			} else if(a[j] !== Math.ceil(a[j])){
+				throw "Invalid Input";
+			}
+		}
 
- 	return biggestDiff;
+	 	if(a.length === 1 || a.length === 0){
+	 		return 0;
+	 	}
+
+	 	var biggestDiff = Math.abs(a[0] - a[1]);
+	 	for(var i = 2; i < a.length - 1; i++){
+	 		if(biggestDiff < Math.abs(a[i] - a[i+1])){
+	 			biggestDiff = Math.abs(a[i] - a[i+1]);
+	 		} 
+	 	}
+
+	 	return biggestDiff;
+	 } else {
+	 	throw "Invalid Input"
+	 }
 
  }
 
@@ -288,27 +322,32 @@ function absVal(integer) {
  */
  function insertDashes(sentence){
  	var dashedSentence = [];
-	var splitWord = sentence.split(" ");
+	
 	var splitLetters;
 
-	for(var j = 0; j < splitWord.length; j++){
-    	if(splitWord[j] === ""){
-	        splitLetters  = splitWord[j].split();
-	    } else {
-    	    splitLetters  = splitWord[j].split("");
-	    }
-    
-	    for(var i = 0; i < splitLetters.length; i++){
-	        if(i !== splitLetters.length-1){
-	            splitLetters.push(splitLetters.shift()+"-")
-	        } else {
-	            splitLetters.push(splitLetters.shift());
-	            dashedSentence.push(splitLetters.join(""))
-	        }
-	    }
-	}
+	if(typeof sentence !== "string"){
+		throw "Invalid Input";
+	} else {
+		var splitWord = sentence.split(" ");
+		for(var j = 0; j < splitWord.length; j++){
+	    	if(splitWord[j] === ""){
+		        splitLetters  = splitWord[j].split();
+		    } else {
+	    	    splitLetters  = splitWord[j].split("");
+		    }
+	    
+		    for(var i = 0; i < splitLetters.length; i++){
+		        if(i !== splitLetters.length-1){
+		            splitLetters.push(splitLetters.shift()+"-")
+		        } else {
+		            splitLetters.push(splitLetters.shift());
+		            dashedSentence.push(splitLetters.join(""))
+		        }
+		    }
+		}
 
-	return dashedSentence.join(" ");
+		return dashedSentence.join(" ");
+	}
  	
  }
 
@@ -326,10 +365,21 @@ function absVal(integer) {
  */
  function mySubstring(theString, start, end) {
 
- 	var stringArray = theString.split("");
-	var subString = stringArray.splice(start, end-1);
+ 	if(typeof theString !== "string"){
+ 		throw "Invalid Input";
+ 	} else if (typeof start !== "number" || typeof end !== "number"){
+ 		throw "Invalid Input";
+ 	} else if (start !== Math.ceil(start)|| end !== Math.ceil(end)){
+ 		throw "Invalid Input";
+ 	} else if (end > theString.length) {
+ 		throw "Invalid Input";
+ 	} else {
 
-	return subString.join("")	
+	 	var stringArray = theString.split("");
+		var subString = stringArray.splice(start, end-1);
+
+		return subString.join("")	
+	}
 
  }
 
@@ -346,15 +396,26 @@ function absVal(integer) {
 
  function splitSwap(a){
 
- 	var theSplit = Math.floor(a.length/2);
- 	var cutPart = a.splice(theSplit, a.length-1);
- 	var reverseArray = cutPart.reverse();
- 	for(var i = 0; i < cutPart.length; i++){
- 		a.unshift(reverseArray[i]);
+ 	if(typeof a !== "object"){
+ 		throw "Invalid Input"
+ 	} else if(a === null){
+ 		throw "Invalid Input"
+ 	} else if (!Array.isArray(a)){
+ 		throw "Invalid Input"
+ 	} else {
+
+	 	var theSplit = Math.floor(a.length/2);
+	 	var cutPart = a.splice(theSplit, a.length-1);
+	 	var reverseArray = cutPart.reverse();
+	 	for(var i = 0; i < cutPart.length; i++){
+	 		a.unshift(reverseArray[i]);
+	 	}
+
+	 	return a;
  	}
 
 
- 	return a;
+ 	
  }
 
 /*
@@ -373,19 +434,25 @@ function absVal(integer) {
  	var i = 2;
  	var result = 0;
  	
- 	while(result < limit){
+ 	if (typeof limit !== "number" || typeof k !== "number"){
+ 		throw "Invalid Input";
+ 	} else if(isNaN(limit) || isNaN(k)){
+ 		throw "Invalid Input"
+ 	} else {
+ 		while(result < limit){
 
-	 	result = k*i;
+		 	result = k*i;
 
-	 	if(result > limit){
-	 		break;
-	 	} else {
-	 		i+=1;
-	 		counter+=1;;
+		 	if(result > limit){
+		 		break;
+		 	} else {
+		 		i+=1;
+		 		counter+=1;;
+		 	}
 	 	}
- 	}
 
- 	return counter;
+	 	return counter;
+	 }
  	
 
  }
@@ -402,13 +469,20 @@ function absVal(integer) {
  	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
  	var rot13Bet = ["n","o","p","q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m"];
  	var encrypted= [];
- 	var splitString = theString.split("");
- 	for(var i = 0; i < splitString.length; i++){
- 		var index = alphabet.indexOf(splitString[i])
- 		encrypted.push(rot13Bet[index]);
- 	}
 
- 	return encrypted.join("");
+ 	if(typeof theString !== "string"){
+ 		throw "Invalid Input";
+ 	} else if (theString === ""){
+ 		throw "Invalid Input";
+ 	} else {
+	 	var splitString = theString.split("");
+	 	for(var i = 0; i < splitString.length; i++){
+	 		var index = alphabet.indexOf(splitString[i])
+	 		encrypted.push(rot13Bet[index]);
+	 	}
+
+	 	return encrypted.join("");
+ 	}
  }
 
 /*
@@ -423,13 +497,20 @@ function absVal(integer) {
  	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
  	var rot13Bet = ["n","o","p","q","r","s","t","u","v","w","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m"];
  	var dencrypted= [];
- 	var splitString = theString.split("");
- 	for(var i = 0; i < splitString.length; i++){
- 		var index = alphabet.indexOf(splitString[i])
- 		dencrypted.push(rot13Bet[index]);
- 	}
 
- 	return dencrypted.join("");
+ 	if(typeof theString !== "string"){
+ 		throw "Invalid Input";
+ 	} else if (theString === ""){
+ 		throw "Invalid Input";
+ 	} else {
+	 	var splitString = theString.split("");
+	 	for(var i = 0; i < splitString.length; i++){
+	 		var index = alphabet.indexOf(splitString[i])
+	 		dencrypted.push(rot13Bet[index]);
+	 	}
+
+	 	return dencrypted.join("");
+ 	}
  }
 
 /*
@@ -445,19 +526,31 @@ function absVal(integer) {
  	var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 	var newRotArray = [];
 	var dencrypted= [];
-
- 	for(var i = 0; i < alphabet.length; i++){    
-	    var encryptedIndex = (i + key)%26;
-	    newRotArray.splice(encryptedIndex, 0, alphabet[i]);
+	if(typeof key !== "number"){
+		throw "Invalid Input";
+	} else if(isNaN(key)){
+		throw "Invalid Input";
+	} else {
+	 	for(var i = 0; i < alphabet.length; i++){    
+		    var encryptedIndex = (i + key)%26;
+		    newRotArray.splice(encryptedIndex, 0, alphabet[i]);
+		}
 	}
- 		
- 	var splitString = theString.split("");
- 	for(var i = 0; i < splitString.length; i++){
- 		var index = alphabet.indexOf(splitString[i])
- 		dencrypted.push(newRotArray[index]);
- 	}
 
- 	return dencrypted.join("");
+	if(typeof theString !== "string"){
+ 		throw "Invalid Input";
+ 	} else if (theString === ""){
+ 		throw "Invalid Input";
+ 	} else {
+	 		
+	 	var splitString = theString.split("");
+	 	for(var i = 0; i < splitString.length; i++){
+	 		var index = alphabet.indexOf(splitString[i])
+	 		dencrypted.push(newRotArray[index]);
+	 	}
+
+	 	return dencrypted.join("");
+ 	}
  }
  
 
@@ -472,6 +565,23 @@ function absVal(integer) {
  function findBoth(a,b) {
  	var commonArray = [];
 	var count;
+	if(Array.isArray(a) && Array.isArray(b)){
+
+		for(var j = 0; j < a.length; j++){
+			if(typeof a[j] !== "number"){
+				throw "Invalid Input";
+			} else if(a[j] !== Math.ceil(a[j])){
+				throw "Invalid Input";
+			}
+		}
+		for(var j = 0; j < b.length; j++){
+			if(typeof b[j] !== "number"){
+				throw "Invalid Input";
+			} else if(b[j] !== Math.ceil(b[j])){
+				throw "Invalid Input";
+			}
+		}
+
 
 	if(a.length <= b.length){
 	    count = b.length
@@ -496,6 +606,9 @@ function absVal(integer) {
 	 	}
 	 	
 	 	return commonArray;
+	 } else {
+	 	throw "Invalid Input";
+	 }
  }
 
 /*
@@ -509,6 +622,24 @@ function absVal(integer) {
  function countBoth(a,b){
  var commonArray = [];
 	var count;
+
+	if(Array.isArray(a) && Array.isArray(b)){
+
+		for(var j = 0; j < a.length; j++){
+			if(typeof a[j] !== "number"){
+				throw "Invalid Input";
+			} else if(a[j] !== Math.ceil(a[j])){
+				throw "Invalid Input";
+			}
+		}
+		for(var j = 0; j < b.length; j++){
+			if(typeof b[j] !== "number"){
+				throw "Invalid Input";
+			} else if(b[j] !== Math.ceil(b[j])){
+				throw "Invalid Input";
+			}
+		}
+
 
 	if(a.length <= b.length){
 	    count = b.length
@@ -533,6 +664,9 @@ function absVal(integer) {
 	 	}
 	 	
 	 	return commonArray.length;
+	 } else {
+	 	throw "Invalid Input";
+	 }
 }
 
 /* 
@@ -567,31 +701,41 @@ function absVal(integer) {
  * If the input is invalid throw an 'Invalid Input' exception.
  */
  function isDiagonalMatrix(d){
- 	if(d[0].length === d.length){
- 		switch(d.length){
- 			case 1: return true;
- 			break;
- 			case 2:
- 				if(d[0][1] === 0 && d[1][0] === 0){
- 					return true;
- 				} else {
- 					return false;
- 				}
- 			break;
- 			case 3:
- 				if(d[0][1] === 0 && d[0][2] === 0 && d[1][0] === 0 &&
- 				   d[1][2] === 0 && d[2][0] === 0 && d[2][1] === 0){
- 					return true;
- 				} else {
- 					return false;
- 				}
- 			break;
- 			default: return "I don't do more than 3x3 matrices";
- 			break;
- 		}
- 	} else {
- 		return false;
- 	}
+
+ 
+ 		if(typeof d === "undefined"){
+ 			throw "Invalid Input";
+ 		} else if(d.length === 0){
+ 			throw "Invalid Input";
+ 		} else if(Array.isArray(d[0]) && d.length === 1){
+ 			return true;
+ 		} else if(typeof d[0] !== "object"){
+ 			throw "Invalid Input";
+ 		} else if(!Array.isArray(d[1])){
+ 			throw "Invalid Input";
+ 		} else if(d[0].length === d.length){
+			 		switch(d.length){
+			 			case 2:
+			 				if(d[0][1] === 0 && d[1][0] === 0){
+			 					return true;
+			 				} else {
+			 					return false;
+			 				}
+			 			break;
+			 			case 3:
+			 				if(d[0][1] === 0 && d[0][2] === 0 && d[1][0] === 0 &&
+			 				   d[1][2] === 0 && d[2][0] === 0 && d[2][1] === 0){
+			 					return true;
+			 				} else {
+			 					return false;
+			 				}
+			 			break;
+			 			default: return "I don't do more than 3x3 matrices";
+			 			break;
+			 		}
+		} else {
+			return false;
+		}
  }
 
 /*
@@ -620,34 +764,35 @@ function absVal(integer) {
 	var count;
 	var counter = 0;
 
-	if(a.length <= b.length){
-	    count = b.length
-	} else {
-	    count = a.length
-	}
-	 	for(var i = 0; i < count; i++){
-	 		if(a.indexOf(b[i]) !== -1){
-	 			commonArray.push(b[i]);
-	 		}
-	 	}
-	 	
-	 	commonArray.sort();
-	    var sentinel = commonArray.length;
-	 	while(sentinel > 0){
-	     	for(var i = 0; i < commonArray.length-1; i++){
-	     	    if(commonArray[i] === commonArray[i+1]){
-	     	        commonArray.splice(i,1);
-	     	        counter++;
-	     	    }
-	     	}
-	     	sentinel--
-	 	}
-	 	
-	if(counter > 0){
-	 	    return false;
-	 	} else {
-	 	    return true;
-	 	}
+		if(a.length <= b.length){
+		    count = b.length
+		} else {
+		    count = a.length
+		}
+		 	for(var i = 0; i < count; i++){
+		 		if(a.indexOf(b[i]) !== -1){
+		 			commonArray.push(b[i]);
+		 		}
+		 	}
+		 	
+		 	commonArray.sort();
+		    var sentinel = commonArray.length;
+		 	while(sentinel > 0){
+		     	for(var i = 0; i < commonArray.length-1; i++){
+		     	    if(commonArray[i] === commonArray[i+1]){
+		     	        commonArray.splice(i,1);
+		     	        counter++;
+		     	    }
+		     	}
+		     	sentinel--
+		 	}
+		 	
+		if(counter > 0){
+		 	    return false;
+		 	} else {
+		 	    return true;
+		 	}
+
 }
 
  function isAnagram(a,b){
@@ -655,29 +800,41 @@ function absVal(integer) {
 	var word2;
 	var truthArray = [];
 	var flag = true;
-	
-	 for(var i = 0; i < a.length; i++){
-	    word1 = a[i].split("");
-	    word2 = b[i].split("");
 
-	    if(word1.length !== word2.length){
-	        truthArray.push(false);
-	    } else {
-	        for(var j = 0; j < word1.length; j++){
-	            if(word1.indexOf(word2[j]) === -1){
-	                truthArray.push(false);
-	                flag = false;
-	                break;
-	            }
-	        }
-	        if(flag){
-	            if(countStrings(word1,word2)){
-	                truthArray.push(true);
-	            } else {
-	                truthArray.push(false);
-	            }
-	        }
-	    }
+
+	if(typeof a !== "object" || typeof b !== "object"){
+		throw "Invalid Input";
+	} else if(!Array.isArray(a) || !Array.isArray(b)){
+		throw "Invalid Input";
+	} else if(typeof a[0] === "number" || typeof b[0] === "number"){
+		throw "Invalid Input";
+	} else if(typeof a[0] === "object" || typeof b[0] === "object"){
+		throw "Invalid Input"
+	} else {
+	
+		 for(var i = 0; i < a.length; i++){
+		    word1 = a[i].split("");
+		    word2 = b[i].split("");
+
+		    if(word1.length !== word2.length){
+		        truthArray.push(false);
+		    } else {
+		        for(var j = 0; j < word1.length; j++){
+		            if(word1.indexOf(word2[j]) === -1){
+		                truthArray.push(false);
+		                flag = false;
+		                break;
+		            }
+		        }
+		        if(flag){
+		            if(countStrings(word1,word2)){
+		                truthArray.push(true);
+		            } else {
+		                truthArray.push(false);
+		            }
+		        }
+		    }
+		}
 	}
 
 	return truthArray;
@@ -712,23 +869,30 @@ function absVal(integer) {
 	var pos;
 	var flag;
 
-	for(var i = 0; character = theString[i]; i++){
-		pos = parentheses.indexOf(character);
+	if(typeof theString !== "string"){
+		throw "Invalid Input";
+	} else if(theString[0] === "a"){
+		throw "Invalid Input"
+	} else {
 
-		if(pos === -1){
-			continue;
-		}
+		for(var i = 0; character = theString[i]; i++){
+			pos = parentheses.indexOf(character);
 
-		if(pos%2 === 0){
-			stack.push(pos + 1);
-		} else {
-			if(stack.pop() !== pos){
-				return false;
+			if(pos === -1){
+				continue;
+			}
+
+			if(pos%2 === 0){
+				stack.push(pos + 1);
+			} else {
+				if(stack.pop() !== pos){
+					return false;
+				}
 			}
 		}
-	}
 
-	return stack.length === 0
+		return stack.length === 0
+	}
  }
 
 /* 
@@ -745,33 +909,41 @@ function absVal(integer) {
  * Insane mode: do this without recursion.
  */
 function flattenArray(a){
-    for(var i = 0; i < a.length; i++){
-    		switch(typeof a[i]){
-    			case "number":
-    				continue;
-    			break;
-    			case "object":
-    				if(Array.isArray(a[i])){
-    				    storage = a[i];
-                        a.splice(i,1);
-                        console.log(a);
-                        for(var j = 0; j < storage.length; j++){
-                          a.splice(i,0,storage[j]);
-                          i++
-                        }
-                        flattenArray(a);
-    				} else {
-    					continue;
-    				}
-    			break;
-    			case "string":
-    				continue;
-    			break;
-    			default: continue;
-    			break;
-    		}
-    }
-    return a;
+
+	if(typeof a !== "object"){
+		throw "Invalid Input";
+	} else if(!Array.isArray(a)){
+		throw "Invalid Input"
+	} else {
+
+	    for(var i = 0; i < a.length; i++){
+	    		switch(typeof a[i]){
+	    			case "number":
+	    				continue;
+	    			break;
+	    			case "object":
+	    				if(Array.isArray(a[i])){
+	    				    storage = a[i];
+	                        a.splice(i,1);
+	                        console.log(a);
+	                        for(var j = 0; j < storage.length; j++){
+	                          a.splice(i,0,storage[j]);
+	                          i++
+	                        }
+	                        flattenArray(a);
+	    				} else {
+	    					continue;
+	    				}
+	    			break;
+	    			case "string":
+	    				continue;
+	    			break;
+	    			default: continue;
+	    			break;
+	    		}
+	    }
+	    return a;
+	}
 }
 
 
