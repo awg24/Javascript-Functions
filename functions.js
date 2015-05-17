@@ -221,7 +221,14 @@ function absVal(integer) {
  	var pair = [];
  	if(typeof a !== "object"){
  		throw "Invalid Input"
- 	} else if(Array.isArray(a)){
+ 	} else if(!Array.isArray(a)){
+ 	    throw "Invalid Input"
+ 	} else {
+ 	    for(var i = 0; i < a.length; i++){
+ 	        if(typeof a[i] !== "string"){
+ 	            throw "Invalid Input"
+ 	        }
+ 	    }
  
 	    while (a.length >= 2){
 		 	var rand1 = Math.floor(Math.random()*a.length)
@@ -236,11 +243,9 @@ function absVal(integer) {
 	    if(a.length === 1){
 	    	pairs[pairs.length-1].push(a[0]);
 	    }
-	    return pairs;
+	     return pairs;
+	}
 
-	 } else {
-	 	 throw "Invalid Input";
-	 }
  }
 
 /*
