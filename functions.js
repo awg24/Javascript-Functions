@@ -11,11 +11,8 @@ function checkData(inputString) {
 	if(typeof inputString !== "string"){
 		throw "Invalid Input";
 	}
-	if(inputString.length === 3){
-		return true;
-	} else {
-		return false;
-	}
+
+	return inputString.length === 3 ? true : false;
 }
 
 /*
@@ -29,14 +26,14 @@ function concatenateArrays(a, b) {
 
 	if(Array.isArray(a) && Array.isArray(b)){
 
-		for(var j = 0; j < a.length; j++){
+		for(var j in a){
 			if(typeof a[j] !== "number"){
 				throw "Invalid Input";
 			} else if(a[j] !== Math.ceil(a[j])){
 				throw "Invalid Input";
 			}
 		}
-		for(var j = 0; j < b.length; j++){
+		for(var j in b){
 			if(typeof b[j] !== "number"){
 				throw "Invalid Input";
 			} else if(b[j] !== Math.ceil(b[j])){
@@ -44,7 +41,7 @@ function concatenateArrays(a, b) {
 			}
 		}
 
-		for(var i = 0; i < b.length; i++) {
+		for(var i in b) {
 			a.push(b[i]);
 		}
 		return a;
@@ -90,10 +87,7 @@ function sortLetters(inputString) {
 		throw "Invalid Input";
 	}
 	
-	var stringArray = inputString.split("");
-	var sortedArray = stringArray.sort();
-
-	return sortedArray.join("");
+	return inputString.split("").sort().join("");
 }
 
 /*
@@ -111,11 +105,10 @@ function absVal(integer) {
 		throw "Invalid Input";
 	} else if(integer !== Math.ceil(integer)){
 		throw "Invalid Input";
-	} else if (integer < 0){
-		return -integer;
 	} else {
-		return integer;
+		return integer < 0 ? -integer : integer;
 	}
+	
 }
 
 /*
@@ -130,11 +123,10 @@ function absVal(integer) {
 
  	if(a !== Math.ceil(a) || b !== Math.ceil(b)){
 		throw "Invalid Input";
-	} else if(a > b){
- 		return b;
- 	} else {
- 		return a;
+	} else {
+		return a > b ? b : a;
  	}
+ 	
  }
 
 /*
@@ -150,7 +142,7 @@ function absVal(integer) {
 	if(!Array.isArray(a)){
 		throw "Invalid Input";
 	} else {	
-		for(var j = 0; j < a.length; j++){
+		for(var j in a){
     			if(typeof a[j] !== "number"){
     				throw "Invalid Input";
     			} else if(a[j] !== Math.ceil(a[j])){
@@ -224,7 +216,7 @@ function absVal(integer) {
  	} else if(!Array.isArray(a)){
  	    throw "Invalid Input"
  	} else {
- 	    for(var i = 0; i < a.length; i++){
+ 	    for(var i in a){
  	        if(typeof a[i] !== "string"){
  	            throw "Invalid Input"
  	        }
@@ -269,7 +261,7 @@ function absVal(integer) {
 	 		newArray.push(i);
 	 	}
 
-	 	for(var i = 0; i < newArray.length; i++){
+	 	for(var i in newArray){
 	 		sumOfSquaredArray += Math.pow(newArray[i],2);
 	 	}
 
@@ -291,7 +283,7 @@ function absVal(integer) {
  		throw "Invalid Input"
  	} else if(Array.isArray(a)){
 
-		for(var j = 0; j < a.length; j++){
+		for(var j in a){
 			if(typeof a[j] !== "number"){
 				throw "Invalid Input";
 			} else if(a[j] !== Math.ceil(a[j])){
@@ -334,7 +326,7 @@ function absVal(integer) {
 		throw "Invalid Input";
 	} else {
 		var splitWord = sentence.split(" ");
-		for(var j = 0; j < splitWord.length; j++){
+		for(var j in splitWord){
 	    	if(splitWord[j] === ""){
 		        splitLetters  = splitWord[j].split();
 		    } else {
@@ -380,8 +372,7 @@ function absVal(integer) {
  		throw "Invalid Input";
  	} else {
 
-	 	var stringArray = theString.split("");
-		var subString = stringArray.splice(start, end-1);
+	 	var subString = theString.split("").splice(start, end-1);
 
 		return subString.join("")	
 	}
@@ -410,10 +401,10 @@ function absVal(integer) {
  	} else {
 
 	 	var theSplit = Math.floor(a.length/2);
-	 	var cutPart = a.splice(theSplit, a.length-1);
-	 	var reverseArray = cutPart.reverse();
-	 	for(var i = 0; i < cutPart.length; i++){
-	 		a.unshift(reverseArray[i]);
+	 	var cutPart = a.splice(theSplit, a.length-1).reverse();
+
+	 	for(var i in cutPart){
+	 		a.unshift(cutPart[i]);
 	 	}
 
 	 	return a;
@@ -481,7 +472,7 @@ function absVal(integer) {
  		throw "Invalid Input";
  	} else {
 	 	var splitString = theString.split("");
-	 	for(var i = 0; i < splitString.length; i++){
+	 	for(var i in splitString){
 	 		var index = alphabet.indexOf(splitString[i])
 	 		encrypted.push(rot13Bet[index]);
 	 	}
@@ -509,7 +500,7 @@ function absVal(integer) {
  		throw "Invalid Input";
  	} else {
 	 	var splitString = theString.split("");
-	 	for(var i = 0; i < splitString.length; i++){
+	 	for(var i in splitString){
 	 		var index = alphabet.indexOf(splitString[i])
 	 		dencrypted.push(rot13Bet[index]);
 	 	}
@@ -573,14 +564,14 @@ function absVal(integer) {
 	var count;
 	if(Array.isArray(a) && Array.isArray(b)){
 
-		for(var j = 0; j < a.length; j++){
+		for(var j in a){
 			if(typeof a[j] !== "number"){
 				throw "Invalid Input";
 			} else if(a[j] !== Math.ceil(a[j])){
 				throw "Invalid Input";
 			}
 		}
-		for(var j = 0; j < b.length; j++){
+		for(var j in b){
 			if(typeof b[j] !== "number"){
 				throw "Invalid Input";
 			} else if(b[j] !== Math.ceil(b[j])){
@@ -589,19 +580,15 @@ function absVal(integer) {
 		}
 
 
-	if(a.length <= b.length){
-	    count = b.length
-	} else {
-	    count = a.length
-	}
+	count = a.length <= b.length ? b.length : a.length
+	    
 	 	for(var i = 0; i < count; i++){
 	 		if(a.indexOf(b[i]) !== -1){
 	 			commonArray.push(b[i]);
 	 		}
 	 	}
 	 	
-	 	commonArray.sort();
-	    var sentinel = commonArray.length;
+	    var sentinel = commonArray.sort().length;
 	 	while(sentinel > 0){
 	     	for(var i = 0; i < commonArray.length-1; i++){
 	     	    if(commonArray[i] === commonArray[i+1]){
@@ -631,14 +618,14 @@ function absVal(integer) {
 
 	if(Array.isArray(a) && Array.isArray(b)){
 
-		for(var j = 0; j < a.length; j++){
+		for(var j in a){
 			if(typeof a[j] !== "number"){
 				throw "Invalid Input";
 			} else if(a[j] !== Math.ceil(a[j])){
 				throw "Invalid Input";
 			}
 		}
-		for(var j = 0; j < b.length; j++){
+		for(var j in b){
 			if(typeof b[j] !== "number"){
 				throw "Invalid Input";
 			} else if(b[j] !== Math.ceil(b[j])){
@@ -647,19 +634,15 @@ function absVal(integer) {
 		}
 
 
-	if(a.length <= b.length){
-	    count = b.length
-	} else {
-	    count = a.length
-	}
+	count = a.length <= b.length ? b.length : a.length
+	    
 	 	for(var i = 0; i < count; i++){
 	 		if(a.indexOf(b[i]) !== -1){
 	 			commonArray.push(b[i]);
 	 		}
 	 	}
 	 	
-	 	commonArray.sort();
-	    var sentinel = commonArray.length;
+	    var sentinel = commonArray.sort().length;
 	 	while(sentinel > 0){
 	     	for(var i = 0; i < commonArray.length-1; i++){
 	     	    if(commonArray[i] === commonArray[i+1]){
@@ -793,11 +776,7 @@ function absVal(integer) {
 		     	sentinel--
 		 	}
 		 	
-		if(counter > 0){
-		 	    return false;
-		 	} else {
-		 	    return true;
-		 	}
+		return counter > 0 ? false : true;
 
 }
 
@@ -818,14 +797,14 @@ function absVal(integer) {
 		throw "Invalid Input"
 	} else {
 	
-		 for(var i = 0; i < a.length; i++){
+		 for(var i in a){
 		    word1 = a[i].split("");
 		    word2 = b[i].split("");
 
 		    if(word1.length !== word2.length){
 		        truthArray.push(false);
 		    } else {
-		        for(var j = 0; j < word1.length; j++){
+		        for(var j in word1){
 		            if(word1.indexOf(word2[j]) === -1){
 		                truthArray.push(false);
 		                flag = false;
@@ -833,11 +812,7 @@ function absVal(integer) {
 		            }
 		        }
 		        if(flag){
-		            if(countStrings(word1,word2)){
-		                truthArray.push(true);
-		            } else {
-		                truthArray.push(false);
-		            }
+		           countStrings(word1,word2) ? truthArray.push(true) : truthArray.push(false);    
 		        }
 		    }
 		}
@@ -878,7 +853,7 @@ function absVal(integer) {
 	if(typeof theString !== "string"){
 		throw "Invalid Input";
 	} else {
-		for(var k = 0; k < theString.length; k++){
+		for(var k in theString){
 			switch(theString[k]){
 				case "{":
 				break;
@@ -938,7 +913,7 @@ function flattenArray(a){
 		throw "Invalid Input"
 	} else {
 
-	    for(var i = 0; i < a.length; i++){
+	    for(var i in a){
 	    		switch(typeof a[i]){
 	    			case "number":
 	    				continue;
@@ -947,8 +922,7 @@ function flattenArray(a){
 	    				if(Array.isArray(a[i])){
 	    				    storage = a[i];
 	                        a.splice(i,1);
-	                        console.log(a);
-	                        for(var j = 0; j < storage.length; j++){
+	                        for(var j in storage){
 	                          a.splice(i,0,storage[j]);
 	                          i++
 	                        }
